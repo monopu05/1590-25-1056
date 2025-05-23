@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio Personal del Alumno</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .frame-container {
+            display: flex;
+            height: 100vh;
+        }
+        .menu-frame {
+            width: 250px;
+            background-color: #00CC99;
+            color: black;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .content-frame {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #CCFF99;
+        }
+        .menu-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #CCFF99;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu-item:hover {
+            background-color: #CCFF66;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #33CCCC;
+            color: black;
+        }
+        tr:nth-child(even) {
+            background-color: #CCFF99;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .game-container {
+            width: 100%;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        #snake {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #3366FF;
+        }
+        .food {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FF3333;
+            border-radius: 50%;
+        }
+        .manual-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="frame-container">
+        <!-- Marco del menú -->
+        <div class="menu-frame">
+            <h2>Menú Principal</h2>
+            <div class="menu-item" onclick="showContent('cv')">Hoja de vida</div>
+            <div class="menu-item" onclick="showContent('grades')">Notas de cursos</div>
+            <div class="menu-item" onclick="showContent('gallery')">Galería</div>
+            <div class="menu-item" onclick="showContent('video')">Video de YouTube</div>
+            <div class="menu-item" onclick="showContent('game')">Juego con JavaScript</div>
+            <div class="menu-item" onclick="showContent('manual')">Manual técnico</div>
+        </div>
+
+        <!-- Marco de contenido -->
+        <div class="content-frame" id="content-frame">
+            <h1 id="content-title">Bienvenido a mi sitio web</h1>
+            <div id="content-body">
+                <p>Selecciona una opción del menú para ver el contenido.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar el contenido según la opción seleccionada
+        function showContent(section) {
+            const contentFrame = document.getElementById('content-frame');
+            const contentTitle = document.getElementById('content-title');
+            const contentBody = document.getElementById('content-body');
+
+            switch(section) {
+                case 'cv':
+                    contentTitle.textContent = 'Hoja de Vida';
+                    contentBody.innerHTML = `
+                        <h2>Datos Personales</h2>
+                        <p><strong>Nombre:</strong> Jonathan Alejandro Peralta Umanzor</p>
+                        <p><strong>Fecha de Nacimiento:</strong> 24/02/2001</p>
+                        <p><strong>Dirección:</strong> Barrio La Perla, Cuilapa</p>
+                        <p><strong>Teléfono:</strong> +502 6578-7854</p>
+                        <p><strong>Email:</strong> jap45@gmial.com</p>
+                        
+                        <h2>Educación</h2>
+                        <p><strong>Universidad Mariano Gálvez de Guatemala</strong> - Ingeniería de Sistemas (2020-2025)</p>
+                        <p><strong>Colegio Hermano Pedro</strong> - Bachiller en Ciencias (2015-2020)</p>
+                        
+                        <h2>Experiencia Laboral</h2>
+                        <p><strong>Desarrollador Web</strong> - Empresa abc (2021-Presente)</p>
+                        <ul>
+                            <li>Desarrollo de aplicaciones web con React y Node.js</li>
+                            <li>Mantenimiento de bases de datos MySQL</li>
+                            <li>Implementación de APIs RESTful</li>
+                        </ul>
+                        
+                        <h2>Habilidades</h2>
+                        <ul>
+                            <li>HTML, CSS, JavaScript</li>
+                            <li>React, Node.js</li>
+                            <li>MySQL, MongoDB</li>
+                            <li>Git, Docker</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'grades':
+                    contentTitle.textContent = 'Notas de Cursos';
+                    contentBody.innerHTML = `
+                        <h2>Notas del Primer y Segundo Parcial</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Curso</th>
+                                    <th>Primer Parcial</th>
+                                    <th>Segundo Parcial</th>
+                                    <th>Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Programación Web</td>
+                                    <td>18</td>
+                                    <td>17</td>
+                                    <td>17.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Base de Datos</td>
+                                    <td>16</td>
+                                    <td>19</td>
+                                    <td>17.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Inteligencia Artificial</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>15.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Redes de Computadoras</td>
+                                    <td>17</td>
+                                    <td>18</td>
+                                    <td>17.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Ingeniería de Software</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>19.5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                    break;
+                    
+                case 'gallery':
+                    contentTitle.textContent = 'Galería';
+                    contentBody.innerHTML = `
+                        <h2>Mis Fotos</h2>
+                        <div class="gallery">
+                            <img src="https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/fff09eaf-17c3-446b-be32-8a0d47e4ccf1/02e11de2-6eb8-11ef-bb0b-0afff21f57b1?host=wbd-images.prod-vod.h264.io&partner=beamcom" alt="Imagen 1">
+                            <img src="https://static.wikia.nocookie.net/horadeaventura/images/4/49/Dokis006.png/revision/latest?cb=20140605014013&path-prefix=es" alt="Imagen 2">
+                            <img src="https://i.pinimg.com/originals/eb/bc/52/ebbc5251d27269545c4ffcab5cb4fdd3.jpg" alt="Imagen 3">
+                            <img src="https://resizer.glanacion.com/resizer/v2/el-elenco-KZRKCVR4NRGXBL2FWMQW47ORRQ.jpg?auth=92bdcb2ecbaa6941f3c04408158429a83ce8d5783f8a248855ffc10a7ff9152c&width=768&quality=70&smart=false" alt="Imagen 4">
+                            <img src="https://static.wikia.nocookie.net/elincreiblemundodegumball/images/2/2b/El_Incre%C3%ADble_Mundo_de_Gumball.jpg/revision/latest/scale-to-width-down/1200?cb=20140307062305&path-prefix=es" alt="Imagen 5">
+                            <img src="https://m.media-amazon.com/images/S/pv-target-images/cb5ae4f58e23b22cdf6b745ebc7b3b7028210fc69755aa509f370de8d527ee55._SX1080_FMjpg_.jpg" alt="Imagen 6">
+                            <img src="https://imagenes.elpais.com/resizer/v2/2MOBLUC7YICSTOIKTOYPPQJCZQ.jpg?auth=8dd01b60782b92cbe105640bdca001a94a8200aadc2c6d80df71c45a8321c65e&width=1960&height=1470&smart=true" alt="Imagen 7">
+                            <img src="https://i.etsystatic.com/31191761/r/il/40c2f4/4615872902/il_fullxfull.4615872902_6a8g.jpg" alt="Imagen 8">
+                            <img src="https://static.wikia.nocookie.net/television/images/9/96/Los_J%C3%B3venes_Titanes.jpg/revision/latest?cb=20201113213618&path-prefix=es" alt="Imagen 9">
+                            <img src="https://basadoenhechosreales.com.ar/wp-content/uploads/que-paso-con-los-jovenes-titanes-originales.webp" alt="Imagen 10">
+                            <img src="https://www.cinepremiere.com.mx/wp-content/uploads/2020/10/Justice-League-Unlimited-2004-2006-900x619.jpg" alt="Imagen 11">
+                            <img src="https://www.cinepremiere.com.mx/wp-content/uploads/2020/10/Young-Justice-2010-2013-2019--900x506.jpg" alt="Imagen 12">
+                        </div>
+                    `;
+                    break;
+                    
+                case 'video':
+                    contentTitle.textContent = 'Video de YouTube';
+                    contentBody.innerHTML = `
+                        <h2>Mi Video Favorito</h2>
+                        <div style="max-width: 800px; margin: 0 auto;">
+                            <iframe width="100%" height="450" src="https://www.youtube.com/embed?v=fBE_2sHDt4E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'game':
+                    contentTitle.textContent = 'Juego con JavaScript';
+                    contentBody.innerHTML = `
+                        <h2>Juego de la Serpiente</h2>
+                        <p>Usa las teclas de dirección para mover la serpiente y comer la comida roja.</p>
+                        <div class="game-container" id="game-container">
+                            <div id="snake"></div>
+                        </div>
+                        <p id="score">Puntuación: 0</p>
+                    `;
+                    initGame();
+                    break;
+                    
+                case 'manual':
+                    contentTitle.textContent = 'Manual Técnico';
+                    contentBody.innerHTML = `
+                        <h2>Pasos para crear este sitio web</h2>
+                        
+                        <div class="manual-step">
+                            <h3>1. Estructura básica</h3>
+                            <p>Creé un documento HTML5 con la estructura básica: doctype, html, head y body.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>2. Diseño con marcos</h3>
+                            <p>Implementé un diseño con dos marcos usando flexbox: uno para el menú (250px) y otro para el contenido principal (flexible).</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>3. Estilos CSS</h3>
+                            <p>Agregué estilos CSS para dar formato al menú, los marcos, tablas, galería y otros elementos visuales.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>4. Funcionalidad JavaScript</h3>
+                            <p>Implementé la función showContent() que cambia dinámicamente el contenido según la opción seleccionada en el menú.</p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>5. Contenido de las secciones</h3>
+                            <p>Desarrollé cada una de las secciones solicitadas:
+                                <ul>
+                                    <li>Hoja de vida con datos personales, educación y experiencia</li>
+                                    <li>Tabla de notas con datos de ejemplo</li>
+                                    <li>Galería de imágenes usando Unsplash para imágenes aleatorias</li>
+                                    <li>Integración de video de YouTube con iframe</li>
+                                    <li>Juego simple de la serpiente con JavaScript</li>
+                                    <li>Este manual técnico</li>
+                                </ul>
+                            </p>
+                        </div>
+                        
+                        <div class="manual-step">
+                            <h3>6. Juego de la Serpiente</h3>
+                            <p>Implementé un juego simple de la serpiente con JavaScript puro:
+                                <ul>
+                                    <li>Detección de teclas de dirección</li>
+                                    <li>Generación aleatoria de comida</li>
+                                    <li>Crecimiento de la serpiente al comer</li>
+                                    <li>Detección de colisiones</li>
+                                    <li>Sistema de puntuación</li>
+                                </ul>
+                            </p>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    contentTitle.textContent = 'Bienvenido a mi sitio personal';
+                    contentBody.innerHTML = '<p>Selecciona una opción del menú para ver el contenido.</p>';
+            }
+        }
+
+        // Juego de la serpiente
+        function initGame() {
+            const container = document.getElementById('game-container');
+            const snake = document.getElementById('snake');
+            const scoreElement = document.getElementById('score');
+            
+            if (!container || !snake || !scoreElement) return;
+            
+            let snakeX = 100;
+            let snakeY = 100;
+            let foodX = 0;
+            let foodY = 0;
+            let velocityX = 0;
+            let velocityY = 0;
+            let snakeBody = [];
+            let gameOver = false;
+            let score = 0;
+            
+            // Posicion inicial de la serpiente
+            snake.style.left = snakeX + 'px';
+            snake.style.top = snakeY + 'px';
+            
+            // Generar comida
+            function generateFood() {
+                foodX = Math.floor(Math.random() * (container.offsetWidth - 20) / 20) * 20;
+                foodY = Math.floor(Math.random() * (container.offsetHeight - 20) / 20) * 20;
+                
+                const food = document.createElement('div');
+                food.className = 'food';
+                food.style.left = foodX + 'px';
+                food.style.top = foodY + 'px';
+                food.id = 'food';
+                container.appendChild(food);
+            }
+            
+            // Detectar teclas
+            document.addEventListener('keydown', changeDirection);
+            
+            function changeDirection(e) {
+                if (e.key === 'ArrowUp' && velocityY !== 20) {
+                    velocityX = 0;
+                    velocityY = -20;
+                } else if (e.key === 'ArrowDown' && velocityY !== -20) {
+                    velocityX = 0;
+                    velocityY = 20;
+                } else if (e.key === 'ArrowLeft' && velocityX !== 20) {
+                    velocityX = -20;
+                    velocityY = 0;
+                } else if (e.key === 'ArrowRight' && velocityX !== -20) {
+                    velocityX = 20;
+                    velocityY = 0;
+                }
+            }
+            
+            // Iniciar juego
+            generateFood();
+            const gameLoop = setInterval(moveSnake, 100);
+            
+            function moveSnake() {
+                if (gameOver) {
+                    clearInterval(gameLoop);
+                    alert('Game Over! Puntuación: ' + score);
+                    return;
+                }
+                
+                // Actualizar posición
+                snakeX += velocityX;
+                snakeY += velocityY;
+                
+                // Verificar colisión con bordes
+                if (snakeX < 0 || snakeX >= container.offsetWidth || 
+                    snakeY < 0 || snakeY >= container.offsetHeight) {
+                    gameOver = true;
+                }
+                
+                // Verificar colisión con comida
+                const food = document.getElementById('food');
+                if (food && Math.abs(snakeX - foodX) < 20 && Math.abs(snakeY - foodY) < 20) {
+                    // Comer comida
+                    container.removeChild(food);
+                    generateFood();
+                    
+                    // Aumentar serpiente
+                    snakeBody.push([snakeX, snakeY]);
+                    score += 10;
+                    scoreElement.textContent = 'Puntuación: ' + score;
+                }
+                
+                // Mover cuerpo de la serpiente
+                for (let i = snakeBody.length - 1; i > 0; i--) {
+                    snakeBody[i] = snakeBody[i - 1];
+                    
+                    // Verificar colisión con el cuerpo
+                    if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
+                        gameOver = true;
+                    }
+                }
+                
+                if (snakeBody.length) {
+                    snakeBody[0] = [snakeX, snakeY];
+                }
+                
+                // Actualizar posición de la cabeza
+                snake.style.left = snakeX + 'px';
+                snake.style.top = snakeY + 'px';
+                
+                // Actualizar cuerpo (en una implementación completa se agregarían segmentos visuales)
+            }
+        }
+    </script>
+</body>
+</html>
